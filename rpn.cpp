@@ -4,8 +4,8 @@ using namespace std;
 class RPN
 {
 private:
-stack<int> st;
-int result;
+stack<double> st;
+double result;
 public:
 bool ifdigit(const string& s1)
 {
@@ -16,20 +16,69 @@ return true;
 }
 return false;
 }
-void ifoperator(const string& s2)
+double ifoperator(const string& s2)
 {
 char c1=s2[0];
+double right=0;
+double left=0;
+int flag=0;
 switch(c1)
 {
 case '+':
-case '-':
-case '*':
-case '/':
-}
-}
-void place intostack(const sting& s3)
+if(!st.empty())
 {
-int x = stoi(s2);
+double second=st.top();
+st.pop();
+double first=st.top();
+st.pop();
+result=first+second;
+}
+case '-':
+if(!st.empty())
+{
+double second=st.top();
+st.pop();
+double first=st.top();
+st.pop();
+result=first-second;
+}
+break;
+case '*':
+if(!st.empty())
+{
+double second=st.top();
+st.pop();
+double first=st.top();
+st.pop();
+result=first*second;
+}
+break;
+case '/':
+if(!st.empty())
+{
+double second=st.top();
+st.pop();
+double first=st.top();
+st.pop();
+result=first/second;
+}
+break;
+default:
+{
+cout << "Enter valid operator" << endl;
+flag=1;
+break;
+}
+}
+if(flag==0)
+{
+st.push(result);
+}
+return result;
+}
+void doubleostack(const string& s3)
+{
+double x = stod(s3);
 st.push(x);
 }
 };
@@ -42,14 +91,16 @@ while(t)
 {
 cout << "Input:" << endl;
 cin >> s;
-bool x = firstobj.ifidigit(s);
-if(bool)
+bool x = firstobj.ifdigit(s);
+if(x)
 {
-firstobj.instostack(s);
+firstobj.doubleostack(s);
 }
 else
 {
-firstobj.ifoperator(s);
+double y=firstobj.ifoperator(s);
+cout << "result : " << y << endl;
 }
 }
+return 0;
 }
